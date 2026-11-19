@@ -81,6 +81,7 @@ describe('OctoFit API contract', () => {
   it('suggests workouts that match each user activity pattern', async () => {
     const mona = await createUserAndTeam('Mona', 'mona@example.com', 'Mona', 'Octocats');
     const hubot = await createUserAndTeam('Hubot', 'hubot@example.com', 'Hubot', 'Robocats');
+    await User.updateOne({ _id: mona.user._id }, { $set: { fitnessGoal: 'mobility' } });
     await User.updateOne({ _id: hubot.user._id }, { $set: { fitnessGoal: 'strength' } });
     await Activity.create([
       { user: mona.user._id, team: mona.team._id, type: 'run', minutes: 40, points: 40, occurredAt: new Date() },
